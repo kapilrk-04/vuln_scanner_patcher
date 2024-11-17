@@ -44,7 +44,7 @@ def main():
             if any(choice < 1 or choice > len(vulnerable_packages) for choice in choices):
                 raise ValueError
             selected_packages = [vulnerable_packages[choice - 1] for choice in choices]
-            results = generate_search_links(selected_packages)
+            results = search_for_updates(op_sys, selected_packages)
             open_links(results)
         except ValueError:
             print("Invalid input. Please enter valid package numbers.")

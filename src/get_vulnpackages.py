@@ -1,4 +1,4 @@
-from utils import VulnerablePackage
+from oop_utils import VulnerablePackage
 from typing import List
 import random
 

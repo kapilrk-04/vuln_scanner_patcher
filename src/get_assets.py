@@ -1,7 +1,7 @@
 import subprocess
 import re
 from typing import Tuple, List, Dict, Optional
-from utils import Package, OSInterface
+from oop_utils import Package, OSInterface
 
 class Windows(OSInterface):
     def __init__(self):
