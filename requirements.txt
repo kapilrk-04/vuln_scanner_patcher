@@ -1,0 +1,10 @@
+webbrowser
+requests
+typing
+fuzzywuzzy
+python-Levenshtein
+bs4
+abc
+subprocess
+re 
+random
