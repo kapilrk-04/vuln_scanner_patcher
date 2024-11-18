@@ -68,7 +68,8 @@ class Windows(OSInterface):
 
         if len(names) == len(versions) == len(providerNames):
             for i in range(len(names)):
-                self.installed_pkgs.add(Package(names[i], versions[i], providerNames[i]))
+                if providerNames[i] != 'msu':
+                    self.installed_pkgs.add(Package(names[i], versions[i], providerNames[i]))
 
         return names, err
 

@@ -5,8 +5,8 @@ import random
 def get_vulnerable_packages(installed_pkgs) -> List[VulnerablePackage]:
     vulnerable_packages = []
 
-    for i in range(10):
-        pkg = random.choice(installed_pkgs)
+    for i in range(len(installed_pkgs)):
+        pkg = installed_pkgs[i]
         vulnerable_packages.append(VulnerablePackage(
             name=pkg.name,
             version=pkg.version,
