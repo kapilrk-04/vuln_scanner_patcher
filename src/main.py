@@ -3,26 +3,39 @@ from get_vulnpackages import *
 from patch_search import *
 import platform
 
-def get_assets(op_sys):
-    if op_sys == 'Windows':
-        print("Detected Windows OS")
-        print("Scanning Windows packages...")
-        windows = Windows()
-        installed_pkgs, err = windows.scan_pkgs()
+def get_os():
+    try:
+        op_sys = platform.system()
+        if op_sys == 'Windows':
+            print("Detected Windows OS")
+            pkg_mgr = Windows()
+            update_searcher = WindowsUpdateSearcher()
+        else:
+            return None, None, None, "Unsupported OS"
+    except Exception as e:
+        return None, None, None, f"Error: {e}"
+    return op_sys, pkg_mgr, update_searcher, None
+
+def get_assets(pkg_mgr):
+    try:
+        installed_pkgs, err = pkg_mgr.scan_pkgs()
         if err:
             return None, err
-        return installed_pkgs, None
-    else:
-        return None, f"Unsupported OS: {op_sys}"
+    except Exception as e:
+        return None, f"Error: {e}"
+    return installed_pkgs, None
 
 def main():
     try:
-        op_sys = platform.system()
+        op_sys, pkg_mgr, update_searcher, err = get_os()
+        if err:
+            print(err)
+            return
     except Exception as e:
         print(f"Error: {e}")
         return
     
-    installed_pkgs, err = get_assets(op_sys)
+    installed_pkgs, err = get_assets(pkg_mgr)
     if err:
         print(f"Error: {err}")
         return
@@ -44,8 +57,8 @@ def main():
             if any(choice < 1 or choice > len(vulnerable_packages) for choice in choices):
                 raise ValueError
             selected_packages = [vulnerable_packages[choice - 1] for choice in choices]
-            results = search_for_updates(op_sys, selected_packages)
-            open_links(results)
+            results = update_searcher.search_for_updates(selected_packages)
+            update_searcher.open_links(results)
         except ValueError:
             print("Invalid input. Please enter valid package numbers.")
             continue

@@ -32,7 +32,7 @@ def extract_sourceforge_links(query):
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(f"Error fetching URL: {e}")
-        return
+        return "Failed to fetch the webpage."
     
     soup = BeautifulSoup(response.text, 'html.parser')
     project_links = soup.find_all('a', class_='result-heading-title')
@@ -47,10 +47,5 @@ def extract_sourceforge_links(query):
             "name": name,
             "url": f"https://sourceforge.net{href}"
         })
-    
-    # for project in projects:
-    #     print(f"Project Name: {project['name']}")
-    #     print(f"Project URL: {project['url']}")
-    #     print("-" * 40)
 
     return projects

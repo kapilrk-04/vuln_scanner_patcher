@@ -34,3 +34,14 @@ class OSInterface(ABC):
     def translate_cmd(self, command: str) -> str:
         """Translate a generic command into an OS-specific command."""
         pass
+
+class UpdateSearcher(ABC):
+    @abstractmethod
+    def search_for_updates(self, packages: List[VulnerablePackage]) -> List[str]:
+        """Search for updates for the given packages."""
+        pass
+
+    @abstractmethod
+    def open_links(self, links: List[str]):
+        """Open the given links in a web browser."""
+        pass
