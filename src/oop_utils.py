@@ -1,20 +1,23 @@
 from abc import ABC, abstractmethod
 from typing import List, Tuple, Optional
 
+
 class Package:
     def __init__(self, name: str, version: str, providerName: str):
         self.name = name
         self.version = version
         self.providerName = providerName
 
+
 class VulnerablePackage:
-# package name, version (this depends  completely on the package and formatting is different for each), severity, severity score (these two depends) on the cvss version
-    def __init__(self, name: str, version: str, providerName: str, severity: str, severity_score: float):
+    # package name, version (this depends  completely on the package and formatting is different for each), severity, severity score (these two depends) on the cvss version
+    def __init__(self, name: str, version: str, providerName: str, cpe: str, vulnerability_summary: dict):
         self.name = name
         self.version = version
-        self.severity = severity
-        self.severity_score = severity_score
         self.providerName = providerName
+        self.cpe = cpe
+        self.vulnerability_summary = vulnerability_summary
+
 
 class OSInterface(ABC):
     def __init__(self):
@@ -34,6 +37,7 @@ class OSInterface(ABC):
     def translate_cmd(self, command: str) -> str:
         """Translate a generic command into an OS-specific command."""
         pass
+
 
 class UpdateSearcher(ABC):
     @abstractmethod

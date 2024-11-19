@@ -1,10 +1,10 @@
-webbrowser
+web-browser
 requests
 typing
 fuzzywuzzy
 python-Levenshtein
 bs4
-abc
-subprocess
-re 
-random
+python-abc
+regex
+random2
+nvdlib
