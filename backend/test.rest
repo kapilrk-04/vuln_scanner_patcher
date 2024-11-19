@@ -1,0 +1,13 @@
+# baseline testing call
+POST http://localhost:3000/api/analyze
+Content-Type: application/json
+
+{
+  "applications": [
+    {
+      "vendor": "apache",
+      "product": "tomcat",
+      "version": "9.0.0"
+    }
+  ]
+}
