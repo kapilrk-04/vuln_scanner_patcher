@@ -1,7 +1,7 @@
 from oop_utils import VulnerablePackage
 from typing import List
 import random
-import nvdlib
+# import nvdlib
 import json
 from tqdm import tqdm
 from requests import post

@@ -8,8 +8,7 @@ import time
 def scrape_updatestar_results(query):
     print(f"Searching UpdateStar for updates for: {query}")
     try:
-        url = f"https://www.updatestar.com/search?query={
-            '+'.join(query.split())}"
+        url = f"https://www.updatestar.com/search?query={'+'.join(query.split())}"
         response = requests.get(url)
         print(response.status_code)
         if response.status_code == 200:
@@ -20,13 +19,15 @@ def scrape_updatestar_results(query):
                 # Extract and return links if results exist
                 print("Results found.")
 
-                # return [result['href'] for result in soup.find_all('a', href=True)]
-                # filter out the links that are not update links
-                results = []
-                for result in results_list:
-                    if '.updatestar' in result.get_text().lower():
-                        results.append(result['href'])
-                return results
+                links = [result['href'] for result in soup.find_all('a', href=True)]
+                # # filter out the links that are not update links
+                # results = []
+                # for result in results_list:
+                #     if '.updatestar' in result.get_text().lower():
+                #         results.append(result['href'])
+                # return results
+                links = [link for link in links if '.updatestar' in link]
+                return links
             else:
                 return "No results found."
     except Exception as e:
@@ -36,8 +37,7 @@ def scrape_updatestar_results(query):
 
 
 def extract_sourceforge_links(query):
-    search_url = f"https://sourceforge.net/directory/?q={
-        '+'.join(query.split())}"
+    search_url = f"https://sourceforge.net/directory/?q={'+'.join(query.split())}"
     try:
         response = requests.get(search_url)
         response.raise_for_status()

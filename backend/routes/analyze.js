@@ -13,6 +13,7 @@ router.post('/api/analyze', async (req, res) => {
 
     for (const app of applications) {
       const { vendor, product, version } = app;
+      console.log(`Analyzing ${product} ${version}...`);
       const searchKey = `${product}:${version}`;
 
       let cpeCache = await CPECache.findOne({ searchKey });
